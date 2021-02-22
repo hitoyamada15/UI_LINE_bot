@@ -14,7 +14,7 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 #model = load_model("resnet50_imagenet.h5")
-model = load_model('ResNet_24.h5')
+model = load_model('ResNet_32.h5')
 
 import pandas as pd
 
@@ -86,7 +86,7 @@ def handle_image_message(event):
             label = classnames[index]
 
             #text = f"cat = {cat_score}\ndog = {dog_score}"
-            text = f"このうどんは{label}です。"
+            text = "このうどんは{label}です。"
             
             #df = pd.DataFrame()
             #df["index"] = np.arange(1000)
