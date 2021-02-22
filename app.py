@@ -19,9 +19,9 @@ model = load_model('ResNet_32.h5')
 import pandas as pd
 
 
-import json
-json_open = open("imagenet_class_index.json", 'r')
-imagenet_classnames = json.load(json_open)
+#import json
+#json_open = open("imagenet_class_index.json", 'r')
+#imagenet_classnames = json.load(json_open)
 
 
 
@@ -86,7 +86,7 @@ def handle_image_message(event):
             label = classnames[index]
 
             #text = f"cat = {cat_score}\ndog = {dog_score}"
-            text = "このうどんは{label}です。"
+            text = label
             
             #df = pd.DataFrame()
             #df["index"] = np.arange(1000)
@@ -112,6 +112,3 @@ def handle_image_message(event):
 
 if __name__ == "__main__":
     app.run()
-
-
-
