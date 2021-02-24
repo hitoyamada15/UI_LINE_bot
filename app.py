@@ -44,15 +44,16 @@ def callback():
     return'OK'
 
 
-@handler.add(MessageEvent, message=ImageMessage)
+@handler.add(MassageEvent, massage=ImageMessage)
 def handle_image_message(event):
-    message_id = event.message.id
-    message_content = line_bot_api.get_message_content(message_id)
+    message_content = line_bot_api.get_message_content(event.message.id)
     # 取得した画像ファイル
-    with open(Path(f"static/images/{message_id}.jpg").absolute(), "wb") as f:
-        f.write(message_content.content)
+    f.write(message_content.content)
+    
+    with open("static/"+event.message.id+".jpg", "wb") as f:
+        #f.write(message_content.content)
         
-        test_url = f"static/images/{message_id}.jpg"
+        test_url = "./static/"+event.message.id+".jpg"
 
         #img = image.load_img(test_url, target_size=(224, 224)) # read image as PIL data
         img = image.load_img(test_url, target_size=(160, 160)) # read image as PIL data
