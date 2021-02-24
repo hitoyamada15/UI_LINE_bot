@@ -47,8 +47,8 @@ def callback():
 def handle_image_message(event):
     message_content = line_bot_api.get_message_content(event.message.id)
     
-    get_img_text = "AI判別中です。 \n少しお待ちください。"
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
+    #get_img_text = "AI判別中です。 \n少しお待ちください。"
+    #line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
     # 取得した画像ファイル
     with open("data/"+event.message.id+".jpg", "wb") as f:
         f.write(message_content.content)
@@ -116,7 +116,7 @@ def handle_image_message(event):
             
             label = classnames[index]
 
-            text = f"これは、{label} のうどんです。\nこのうどん屋の確率は、{udonya_score:.1f}%です"
+            text = f"これは、{label} のうどんです。\nこのうどん屋の確率は、{udonya_score:.1f}%です。"
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
 
