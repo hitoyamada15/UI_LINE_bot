@@ -10,11 +10,11 @@ from linebot.models import (MessageEvent, TextMessage, TextSendMessage, ImageMes
 #from keras.preprocessing import image
 
 # TensorFlow cpu == 2.3.1
-#import tensorflow as tf
-#from tensorflow.keras.models import load_model
-#from tensorflow.keras.preprocessing import image
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
 #model = load_model("resnet50_imagenet.h5")
-#model = load_model('ResNet_32.h5')
+model = load_model('ResNet_32.h5')
 
 import pandas as pd
 import os
