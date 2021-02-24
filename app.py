@@ -64,7 +64,8 @@ def handle_image_message(event):
         try:
 
             predict = model.predict(x).flatten()
-
+            
+            """
             classnames = ["000_suzaki-shokuryohinten_mitoyo", "001_gamou_sakaide",
                           "002_nagata-in-kanoka_zentsuji","003_hinode-seimenjo_sakaide",
                           "004_tamura_ayagawa","005_setobare_takamatsu",
@@ -74,6 +75,18 @@ def handle_image_message(event):
                           "014_nakamura-udon_marugame","015_yoshiya_marugame",
                           "016_kamakiri_kanonji","017_joto_kanonji",
                           "018_nekko_tadotsu","019_yamadaya_takamatsu"]
+            """
+
+            classnames = ["000_須崎食料品店", "001_讃岐うどん がもう",
+                          "002_釜あげうどん 長田 in 香の香","003_日の出製麺所",
+                          "004_手打うどん たむら","005_おうどん 瀬戸晴れ",
+                          "006_本格手打うどん はゆか","007_うどん　一福","008_谷川米穀店",
+                          "009_手打うどん　麦蔵","010_三好うどん","011_手打ちうどん大蔵",
+                          "012_山越うどん","013_本格手打うどん おか泉",
+                          "014_中村うどん","015_純手打うどん よしや",
+                          "016_カマ喜ri ","017_西端手打 上戸",
+                          "018_根ッ子うどん","019_うどん本陣 山田家"]
+
             index = np.argmax(predict)
             label = classnames[index]
 
