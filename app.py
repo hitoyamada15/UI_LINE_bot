@@ -46,26 +46,19 @@ def callback():
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
     message_content = line_bot_api.get_message_content(event.message.id)
+    
+    test_url = message_content
 
-    # 取得した画像ファイル
-    with open("static/"+event.message.id+".jpg", "wb") as f:
-        f.write(message_content.content)
+    #img = image.load_img(test_url, target_size=(224, 224)) # read image as PIL data
+    img = image.load_img(test_url, target_size=(160, 160)) # read image as PIL data
+    x = image.img_to_array(img) # convert PIL data to Numpy Array
+    x = np.expand_dims(x, axis=0)
+    x = x / 255.0
         
-        test_url = "./static/"+event.message.id+".jpg"
+    try:
+        predict = model.predict(x).flatten()
 
-        #img = image.load_img(test_url, target_size=(224, 224)) # read image as PIL data
-        img = image.load_img(test_url, target_size=(160, 160)) # read image as PIL data
-        x = image.img_to_array(img) # convert PIL data to Numpy Array
-        x = np.expand_dims(x, axis=0)
-        x = x / 255.0
-        
-        try:
-            predict = model.predict(x).flatten()
-
-            #cat_score = predict[0]*100
-            #dog_score = predict[1]*100
-
-            classnames = ["000_suzaki-shokuryohinten_mitoyo", "001_gamou_sakaide",
+        classnames = ["000_suzaki-shokuryohinten_mitoyo", "001_gamou_sakaide",
                           "002_nagata-in-kanoka_zentsuji","003_hinode-seimenjo_sakaide",
                           "004_tamura_ayagawa","005_setobare_takamatsu",
                           "006_hayuka_ayagawa","007_ippuku_takamatsu","008_tanigawa-beikokuten_mannou",
@@ -74,29 +67,16 @@ def handle_image_message(event):
                           "014_nakamura-udon_marugame","015_yoshiya_marugame",
                           "016_kamakiri_kanonji","017_joto_kanonji",
                           "018_nekko_tadotsu","019_yamadaya_takamatsu"]
-            index = np.argmax(predict)
-            label = classnames[index]
+        index = np.argmax(predict)
+        label = classnames[index]
 
-            #text = f"cat = {cat_score}\ndog = {dog_score}"
-            text = label
-            
-            #df = pd.DataFrame()
-            #df["index"] = np.arange(1000)
-            #df["predict"] = predict
-            #df = df.sort_values("predict", ascending=False)
+        #text = f"cat = {cat_score}\ndog = {dog_score}"
+        text = labl
 
-            #text = "これは\n"
-            #for i in range(5):
-            #    label = imagenet_classnames[df.index[i]]
-            #    label_ja = label["ja"]
-            #    conf = df.iloc[i, 1]*100
-            #    text += f"  {label_ja} {conf:.1f}%\n"
-            #text += "です。"
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
 
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
-
-        except:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="failed"))
+    except:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="failed"))
 
 
         #line_bot_api.reply_message(event.reply_token,ImageSendMessage(original_content_url=FQDN+"/static/"+event.message.id+".jpg",preview_image_url=FQDN+"/static/"+event.message.id+".jpg"))
