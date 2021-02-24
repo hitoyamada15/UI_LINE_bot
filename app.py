@@ -10,20 +10,18 @@ from linebot.models import (MessageEvent, TextMessage, TextSendMessage, ImageMes
 #from keras.preprocessing import image
 
 # TensorFlow cpu == 2.3.1
-import tensorflow as tf
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
+#import tensorflow as tf
+#from tensorflow.keras.models import load_model
+#from tensorflow.keras.preprocessing import image
 #model = load_model("resnet50_imagenet.h5")
-model = load_model('ResNet_32.h5')
+#model = load_model('ResNet_32.h5')
 
 import pandas as pd
-
+import os
 
 #import json
 #json_open = open("imagenet_class_index.json", 'r')
 #imagenet_classnames = json.load(json_open)
-
-
 
 app = Flask(__name__)
 
@@ -49,67 +47,11 @@ def callback():
 
     return'OK'
 
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    line_bot_api.reply_message(
+    event.reply_token,
+    TextSendMessage(text=event.message.text))
 
-@handler.add(MessageEvent, message=ImageMessage)
-def handle_image_message(event):
-    message_content = line_bot_api.get_message_content(event.message.id)
-    
-    # 取得した画像ファイル
-    with open("static/"+event.message.id+".jpg", "wb") as f:
-        f.write(message_content.content)
-        
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="failed"))
-        
-        test_url = "./static/"+event.message.id+".jpg"
-
-        #img = image.load_img(test_url, target_size=(224, 224)) # read image as PIL data
-        img = image.load_img(test_url, target_size=(160, 160)) # read image as PIL data
-        x = image.img_to_array(img) # convert PIL data to Numpy Array
-        x = np.expand_dims(x, axis=0)
-        x = x / 255.0
-
-        try:
-            predict = model.predict(x).flatten()
-
-            #cat_score = predict[0]*100
-            #dog_score = predict[1]*100
-
-            classnames = ["000_suzaki-shokuryohinten_mitoyo", "001_gamou_sakaide",
-                          "002_nagata-in-kanoka_zentsuji","003_hinode-seimenjo_sakaide",
-                          "004_tamura_ayagawa","005_setobare_takamatsu",
-                          "006_hayuka_ayagawa","007_ippuku_takamatsu","008_tanigawa-beikokuten_mannou",
-                          "009_mugizou_takamatsu","010_miyoshi-udon_mitoyo","011_ookura_takamatsu",
-                          "012_yamagoe_ayagawa","013_okasen_utazu",
-                          "014_nakamura-udon_marugame","015_yoshiya_marugame",
-                          "016_kamakiri_kanonji","017_joto_kanonji",
-                          "018_nekko_tadotsu","019_yamadaya_takamatsu"]
-            index = np.argmax(predict)
-            label = classnames[index]
-
-            #text = f"cat = {cat_score}\ndog = {dog_score}"
-            text = label
-            
-            #df = pd.DataFrame()
-            #df["index"] = np.arange(1000)
-            #df["predict"] = predict
-            #df = df.sort_values("predict", ascending=False)
-
-            #text = "これは\n"
-            #for i in range(5):
-            #    label = imagenet_classnames[df.index[i]]
-            #    label_ja = label["ja"]
-            #    conf = df.iloc[i, 1]*100
-            #    text += f"  {label_ja} {conf:.1f}%\n"
-            #text += "です。"
-
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
-
-        except:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="failed"))
-
-
-        #line_bot_api.reply_message(event.reply_token,ImageSendMessage(original_content_url=FQDN+"/static/"+event.message.id+".jpg",preview_image_url=FQDN+"/static/"+event.message.id+".jpg"))
-        
-
-if __name__ == "__main__":
+if __name__ == “__main__”:
     app.run()
