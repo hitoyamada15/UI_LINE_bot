@@ -78,9 +78,8 @@ def handle_image_message(event):
             label = classnames[index]
 
             #text = f"cat = {cat_score}\ndog = {dog_score}"
-            text = labl
 
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=label))
 
         except:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="failed"))
