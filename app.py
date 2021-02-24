@@ -52,7 +52,7 @@ def handle_image_message(event):
     message_content = line_bot_api.get_message_content(event.message.id)
 
     # 取得した画像ファイル
-    with open("static/"+event.message.id+".jpg", "wb") as f:
+    with open("./static/"+event.message.id+".jpg", "wb") as f:
         f.write(message_content.content)
         
 
