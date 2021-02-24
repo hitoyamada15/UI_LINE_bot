@@ -64,7 +64,28 @@ def handle_image_message(event):
         try:
 
             predict = model.predict(x).flatten()
-            
+            """
+            suzaki_score = predict[0]*100
+            gamou_score = predict[1]*100
+            nagata_score = predict[2]*100
+            hinode_score = predict[3]*100
+            tamura_score = predict[4]*100
+            setobare_score = predict[5]*100
+            hayuka_score = predict[6]*100
+            ippuku_score = predict[7]*100
+            tanigawa_score = predict[8]*100
+            mugizou_score = predict[9]*100
+            miyoshi_score = predict[10]*100
+            ookura_score = predict[11]*100
+            yamagoe_score = predict[12]*100
+            okasen_score = predict[13]*100
+            nakamura_score = predict[14]*100
+            yoshiya_score = predict[15]*100
+            kamakiri_score = predict[16]*100
+            joto_score = predict[17]*100
+            nekko_score = predict[18]*100
+            yamadaya_score = predict[19]*100
+            """
             """
             classnames = ["000_suzaki-shokuryohinten_mitoyo", "001_gamou_sakaide",
                           "002_nagata-in-kanoka_zentsuji","003_hinode-seimenjo_sakaide",
@@ -88,11 +109,14 @@ def handle_image_message(event):
                           "018_根ッ子うどん","019_うどん本陣 山田家"]
 
             index = np.argmax(predict)
+            
+            udonya_score = predict[index]*100
+            
             label = classnames[index]
 
-            #text = f"cat = {cat_score}\ndog = {dog_score}"
+            text = f"これは、{label}のうどんです。\n確率{udonya_score:.1f}%"
 
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=label))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
 
         except:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="failed"))
