@@ -55,7 +55,7 @@ def handle_image_message(event):
         test_url = "./data/"+event.message.id+".jpg"
 
         #img = image.load_img(test_url, target_size=(224, 224)) # read image as PIL data
-        img = image.load_img(test_url, target_size=(128, 128)) # read image as PIL data
+        img = image.load_img(test_url, target_size=(160, 160)) # read image as PIL data
         x = image.img_to_array(img) # convert PIL data to Numpy Array
         x = np.expand_dims(x, axis=0)
         x = x / 255.0
