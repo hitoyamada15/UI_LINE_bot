@@ -19,10 +19,6 @@ model = load_model('ResNet_32.h5')
 import pandas as pd
 import os
 
-#import json
-#json_open = open("imagenet_class_index.json", 'r')
-#imagenet_classnames = json.load(json_open)
-
 app = Flask(__name__)
 
 ACCESS_TOKEN = "VzJxMa7DiVPzf3Z1y9+4OOIDBmRzhCdE3DHy/rkjGoSjoYhujyNxYLPOlji+uBgPZlcoGGv6RoTlZJ/IcJKGg2dAQV9AKIBAOM4RfGFxFHFq7g/IgS3WbMUCZz+/gv1IiZNhOTIHuJMpVquPWEv6NQdB04t89/1O/w1cDnyilFU="
@@ -47,18 +43,16 @@ def callback():
 
     return'OK'
 
+
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
-    message_content = line_bot_api.get_message_content(event.message.id)
-
+    message_id = event.message.id
+    message_content = line_bot_api.get_message_content(message_id)
     # 取得した画像ファイル
-    #with open("./static/"+event.message.id+".jpg", "wb") as f:
-    with open("static/send.jpg", "wb") as f:
+    with open(Path(f"static/images/{message_id}.jpg").absolute(), "wb") as f:
         f.write(message_content.content)
         
-
-        #test_url = "./static/"+event.message.id+".jpg"
-        test_url = "./static/send.jpg"
+        test_url = f"static/images/{message_id}.jpg"
 
         #img = image.load_img(test_url, target_size=(224, 224)) # read image as PIL data
         img = image.load_img(test_url, target_size=(160, 160)) # read image as PIL data
