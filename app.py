@@ -48,7 +48,7 @@ def handle_image_message(event):
     message_content = line_bot_api.get_message_content(event.message.id)
     
     get_img_text = "AI判別中です。 \n少しお待ちください。"
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=get_img_text))
     # 取得した画像ファイル
     with open("data/"+event.message.id+".jpg", "wb") as f:
         f.write(message_content.content)
