@@ -47,8 +47,8 @@ def callback():
 def handle_image_message(event):
     message_content = line_bot_api.get_message_content(event.message.id)
     
-    #get_img_text = "AI判別中です。 \n少しお待ちください。"
-    #line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
+    get_img_text = "AI判別中です。 \n少しお待ちください。"
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
     # 取得した画像ファイル
     with open("data/"+event.message.id+".jpg", "wb") as f:
         f.write(message_content.content)
@@ -103,8 +103,8 @@ def handle_image_message(event):
             classnames = ["000-須崎食料品店", "001-讃岐うどん がもう",
                           "002-釜あげうどん 長田 in 香の香","003-日の出製麺所",
                           "004-手打うどん たむら","005-おうどん 瀬戸晴れ",
-                          "006-本格手打うどん はゆか","007-うどん　一福","008-谷川米穀店",
-                          "009-手打うどん　麦蔵","010-三好うどん","011-手打ちうどん大蔵",
+                          "006-本格手打うどん はゆか","007-うどん 一福","008-谷川米穀店",
+                          "009-手打うどん 麦蔵","010-三好うどん","011-手打ちうどん 大蔵",
                           "012-山越うどん","013-本格手打うどん おか泉",
                           "014-中村うどん","015-純手打うどん よしや",
                           "016-カマ喜ri ","017-西端手打 上戸",
