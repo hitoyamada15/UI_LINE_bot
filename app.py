@@ -22,8 +22,8 @@ import os
 
 app = Flask(__name__)
 
-ACCESS_TOKEN = "VzJxMa7DiVPzf3Z1y9+4OOIDBmRzhCdE3DHy/rkjGoSjoYhujyNxYLPOlji+uBgPZlcoGGv6RoTlZJ/IcJKGg2dAQV9AKIBAOM4RfGFxFHFq7g/IgS3WbMUCZz+/gv1IiZNhOTIHuJMpVquPWEv6NQdB04t89/1O/w1cDnyilFU="
-SECRET = "4b4400f6e9a2fe31bb19fb5525b73d58"
+ACCESS_TOKEN = "6SWeij+DVrTEQSBNyP2MxqdYHRuGYNSGtXHB3qwddm6+4JAY4E+qFuquzr29jYObYIWBplN8fQbj7uK7OBVymp/O7gMGjhvEmNyR0q2ii0XhvUYOGxUPZZfE0pWjGxZYw77KF7A9aQSnb50ZHkhajAdB04t89/1O/w1cDnyilFU="
+SECRET = "2af7991203a82a3410e80e864412834a"
 
 #FQDN = "https://cats-vs-dogs-line-bot-naoya.herokuapp.com/callback"
 FQDN = "https://udon-ai-bot.herokuapp.com/callback"
