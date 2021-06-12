@@ -119,7 +119,7 @@ def handle_image_message(event):
             
             label = classnames[index]
 
-            text = f"これは、{label} のうどんです。\nこのうどん屋の確率は、{udonya_score:.1f}%です。"
+            text = f"これは「{label}」のうどんです。\n自信は{udonya_score:.1f}%です。"
 
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
 
